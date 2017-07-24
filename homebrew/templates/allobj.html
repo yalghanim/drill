@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Drill -- Dynamic URLs -- The list
+	</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css?family=Roboto');
+		body {
+			font-family: Roboto;
+			font-size: 24px;
+		}
+		img {
+			opacity: 0.8;
+			background-repeat: no-repeat;
+		}
+
+	</style>
+</head>
+<body>
+<h2> Posts List </h2>
+<ul>
+	{% for instance in post_list %}
+		<br>
+		<a href="{% url 'intlink' post_number=instance.id %}"><li>{{instance.title}}<br>
+		{{instance.number}}</li></a><br>
+	{% endfor %}
+	<br><br>
+	<img src="http://media.gettyimages.com/photos/electric-power-drill-picture-id172772752?s=170667a" align="center">
+</ul>
+</body>
+</html>
