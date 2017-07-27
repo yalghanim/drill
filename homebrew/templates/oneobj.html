@@ -1,37 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Drill -- Dynamic URLs -- One Item</title>
-	<style>
-	@import url('https://fonts.googleapis.com/css?family=Roboto');
-	body {
-		background-color: CadetBlue;
-		font-family: Roboto;
-	}
-	h1 {
-		font-size: 80px;
-		font-family: verdana;
-	}
-	ul {
-		color: white;
-	}
-	a {
-		font-size: 20px;
-	}
-	</style>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}
+One Entry Details
+{% endblock title %}
+
+{% block content %}
+<br><br>
 <h1>ID Page</h1>
 <h2></h2>
 <ul id="new">
 Title: {{input.title}}<br>
 Number: {{input.number}}<br>
 Date: {{input.date}}<br>
-Email: {{input.email}}
+Email: {{input.email}}<br>
+Image: <img src="{{input.image.url}}" class="img-responsive">
 </ul>
 <br><br>
-<a href="{% url 'allobj' %}">Go back to list</a>
+<a href="{% url 'homebrew:allobj' %}">Go back to list</a>
 <br><br>
 
-</body>
-</html>
+{% endblock content %}

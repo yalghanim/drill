@@ -1,32 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>
-		Drill -- Dynamic URLs -- The list
-	</title>
-	<style>
-		@import url('https://fonts.googleapis.com/css?family=Roboto');
-		body {
-			font-family: Roboto;
-			font-size: 24px;
-		}
-		img {
-			opacity: 0.8;
-			background-repeat: no-repeat;
-		}
+{% extends "base.html" %}
 
-	</style>
-</head>
-<body>
+{% block title %}
+Entries List
+{% endblock title %}
+
+{% block content %}
+
 <h2> Posts List </h2>
-<ul>
-	{% for instance in post_list %}
-		<br>
-		<a href="{% url 'intlink' post_number=instance.id %}"><li>{{instance.title}}<br>
-		{{instance.number}}</li></a><br>
-	{% endfor %}
-	<br><br>
-	<img src="http://media.gettyimages.com/photos/electric-power-drill-picture-id172772752?s=170667a" align="center">
-</ul>
-</body>
-</html>
+
+
+<div class="list-group">
+{% for instance in post_list %}
+  <a href="{{instance.absurl}}" class="list-group-item">
+    <h4 class="list-group-item-heading">{{instance.title}}</h4>
+    <p class="list-group-item-text">
+    <strong>{{instance.number}}</strong><br>{{instance.email}}<br><small>{{instance.date}}</small>
+	{# <a href="{{instance.absurl}}" class="btn btn-primary" role="button">View</a> #}
+    </p>
+  </a>
+{% endfor %}
+</div>
+
+
+
+<div class="pagination">
+        <span class="step-links">
+            {% if post_list.has_previous %}
+                <a href="?page={{ post_list.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ post_list.number }} of {{ post_list.paginator.num_pages }}.
+            </span>
+
+            {% if post_list.has_next %}
+                <a href="?page={{ post_list.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+
+{% endblock content %}
