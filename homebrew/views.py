@@ -15,7 +15,7 @@ def day(request):
 def task(request):
 	return HttpResponse("<h1>Task</h1>") 
 
-def allobj(request):
+def allobj(request): #post_list
 	post_list = Brew.objects.all() #.order_by("-date","-title") #ordering by list & title
 	
 	paginator = Paginator(post_list, 4)
@@ -31,8 +31,8 @@ def allobj(request):
 	}
 	return render(request, 'allobj.html', context) 
 
-def intlink(request, post_number):
-	obj = get_object_or_404(Brew, id = post_number)
+def intlink(request, post_slug): #post_detail
+	obj = get_object_or_404(Brew, slug = post_slug)
 	context = {
 	"input": obj,
 	}
@@ -50,8 +50,8 @@ def create(request):
 	}
 	return render(request, 'create.html', context)
 
-def update(request, post_number):
-	instance = get_object_or_404(Brew, id=post_number)
+def update(request, post_slug):
+	instance = get_object_or_404(Brew, slug =post_slug)
 	form = PostForm(request.POST or None, request.FILES or None, instance = instance)
 	if form.is_valid():
 		form.save()
@@ -64,8 +64,8 @@ def update(request, post_number):
 	}
 	return render(request, 'update.html', context)
 
-def delete(request, post_number):
-    instance = get_object_or_404(Post, id=post_number)
+def delete(request, post_slug):
+    instance = get_object_or_404(Post, slug = post_slug)
     instance.delete()
     messages.success(request, "Bye!")
     return redirect("homebrew:allobj")
