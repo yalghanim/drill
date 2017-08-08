@@ -23,6 +23,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls, name="admin"),
     url(r'^', include('homebrew.urls', namespace="homebrew")),
     url(r'^comments/', include('django_comments.urls')),
+    url(r'^api/', include('api.urls', namespace="api")),
+    
 ]
 
 if settings.DEBUG:

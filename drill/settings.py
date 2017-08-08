@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django_comments',
     'homebrew',
     'crispy_forms',
+    'rest_framework',
+    'api',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 SITE_ID = 1

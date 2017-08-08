@@ -13,10 +13,11 @@ urlpatterns = [
     url(r'^create/', views.create, name="create"),
     url(r'^update/(?P<post_slug>[-\w]+)/$', views.update, name="update"),
     url(r'^delete/(?P<post_slug>[-\w]+)/$', views.delete, name="delete"),
-    url(r'^ajax_like/(?P<post_id>\d+)/$', views.ajax_like, name="like_button"),
+    url(r'^ajax_like/(?P<post_number>\d+)/$', views.ajax_like, name="like_button"),
     url(r'^signup/$', views.usersignup, name="signup"),
     url(r'^login/$', views.userlogin, name="login"),
     url(r'^logout/$', views.userlogout, name="logout"),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
