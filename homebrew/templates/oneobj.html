@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-
+{% load urlify %}
+{% load crispy_forms_tags %}
 {% block title %}
 One Entry Details
 {% endblock title %}
@@ -9,14 +10,58 @@ One Entry Details
 <h1>ID Page</h1>
 <h2></h2>
 <ul id="new">
+{% if input.image %}Image: <img src="{{input.image.url}}" class="img-responsive">{% endif %}
 Title: {{input.title}}<br>
+Author: {{input.author.get_full_name}}<br><br>
 Number: {{input.number}}<br>
 Date: {{input.date}}<br>
 Email: {{input.email}}<br>
-Image: <img src="{{input.image.url}}" class="img-responsive">
+
 </ul>
+
+{% include 'django_comments.html' %}
+<button class="btn">
+    <span id="likes_count">{{ post_like_count }}</span>
+    <span id= "heart" class="glyphicon glyphicon-heart {% if liked %}text-danger{% endif %}" aria-hidden="true"></span>
+</button>
+
+<br><br>
+<a href="https://www.facebook.com/sharer/sharer.php?u={{request.absurl}}">
+Share on Facebook
+</a><br>
+<a href="https://twitter.com/home?status={{input.title|truncatechars:35|urlify}}%20{{request.absurl}}">
+    Share on Twitter
+</a><br>
+<a href="https://www.linkedin.com/shareArticle?mini=true&url={{request.absurl}}&title={{input.title|urlify}}&summary={{input.number|truncatechars:35|urlify}}&source={{request.absurl}}">
+Share on Linkedin
+</a><br>
+
 <br><br>
 <a href="{% url 'homebrew:allobj' %}">Go back to list</a>
 <br><br>
+
+<script type="text/javascript">
+    function ajax_like() {
+        console.log("Like/Unlike clicked!");
+        $.ajax(
+            {
+                type:'GET',
+                url: '{% url "homebrew:like_button" post_id=input.id %}',
+                error: function(){
+                    console.log('error');
+                },
+                success: function(data){ 
+                    $("#likes_count").text(data.post_like_count);
+
+                    if(data.action==="like"){
+                        $("#heart").addClass("text-danger");
+                    }else{
+                        $("#heart").removeClass("text-danger")  
+                    }
+                },
+            }
+        );
+    }
+</script>
 
 {% endblock content %}

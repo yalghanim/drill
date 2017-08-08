@@ -6,27 +6,35 @@ Entries List
 
 {% block content %}
 
-<h2> Posts List </h2>
+
+<h2> Posts List </h2><br>
 
 
-<div class="list-group">
 {% for instance in post_list %}
   <a href="{{instance.absurl}}" class="list-group-item">
     <h4 class="list-group-item-heading">{{instance.title}}</h4>
+      <div class="thumbnail">
+    {% if instance.image %}
+        <img src="{{instance.image.url}}" alt="" class="img-responsive">
+    {% endif %}
+    </div>
+    <div class="caption">
+    </div>
     <p class="list-group-item-text">
     <strong>{{instance.number}}</strong><br>{{instance.email}}<br><small>{{instance.date}}</small>
-	{# <a href="{{instance.absurl}}" class="btn btn-primary" role="button">View</a> #}
+           <a href="{{instance.absurl}}" class="btn btn-primary" role="button">View</a>
+    <a href="{% url 'homebrew:update' post_slug=instance.slug %}" class="btn btn-info" role="button">Update</a>
     </p>
   </a>
+<br>
 {% endfor %}
 </div>
-
 
 
 <div class="pagination">
         <span class="step-links">
             {% if post_list.has_previous %}
-                <a href="?page={{ post_list.previous_page_number }}">previous</a>
+                <a href="?page={{ post_list.previous_page_number }}&q={{ request.GET.q }}">previous</a>
             {% endif %}
 
             <span class="current">
@@ -34,7 +42,7 @@ Entries List
             </span>
 
             {% if post_list.has_next %}
-                <a href="?page={{ post_list.next_page_number }}">next</a>
+                <a href="?page={{ post_list.next_page_number }}&q={{ request.GET.q }}">next</a>
             {% endif %}
         </span>
     </div>

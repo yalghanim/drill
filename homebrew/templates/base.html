@@ -16,14 +16,8 @@
     </style>
 </head>
 <body>
+{% include "navbar.html" %}
 {% include "messages.html" %}
-<nav class="navbar navbar-default navbar-fixed-top">
-<ol class="breadcrumb">
-  <li><a href="{% url 'homebrew:allobj' %}">Home</a></li>
-  <li><a href="{% url 'homebrew:create' %}">Create</a></li>
-</ol>
-</nav>
-<br><br><br>
 <div class="container">
     {% block content %}
 

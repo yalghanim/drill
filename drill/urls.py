@@ -20,8 +20,9 @@ from django.conf import settings
 from django.conf.urls.static import static 
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls, name="admin"),
     url(r'^', include('homebrew.urls', namespace="homebrew")),
+    url(r'^comments/', include('django_comments.urls')),
 ]
 
 if settings.DEBUG:
