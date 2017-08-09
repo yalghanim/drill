@@ -44,8 +44,22 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
 ]
+
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
 SITE_ID = 1
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
+}
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=43200),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
